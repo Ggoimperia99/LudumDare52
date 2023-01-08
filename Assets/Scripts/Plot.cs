@@ -10,17 +10,17 @@ public class Plot : MonoBehaviour
     // count of times waterd
     [SerializeField] int timesWatered;
 
-    // seed game object to be instantiated as plant
-    [SerializeField] GameObject plant;
-
     // switch for need to water
     [SerializeField] public bool needToWater = true;
 
     // check if having plants in plot
     [SerializeField] bool hasPlant = false;
 
-    bool cooldown = false;
+    // different colours of plants stored here
+    [SerializeField] GameObject[] differentPlants;
+
     // cooldown timers
+    bool cooldown = false;
     float maxTime = 5;
     float time;
 
@@ -52,7 +52,8 @@ public class Plot : MonoBehaviour
     // Instantiate plant as child of plot
     public void spawnPlant()
     {
-        Instantiate(plant, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity, transform);
+        Instantiate(differentPlants[Random.Range(0, differentPlants.Length)],
+            new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity, transform);
         hasPlant = true;
     }
 
