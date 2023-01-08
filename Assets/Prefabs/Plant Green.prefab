@@ -102,3 +102,4 @@ MonoBehaviour:
   growthLimit: 3
   waterCount: 0
   waterLimit: 3
+  plantType: 1

@@ -1579,6 +1579,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plot
       objectReference: {fileID: 0}
+    - target: {fileID: 565447586282337874, guid: 879294f5685884fa5bcc4d1a9ab34f4e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 565447586282337884, guid: 879294f5685884fa5bcc4d1a9ab34f4e, type: 3}
       propertyPath: m_RootOrder
       value: 9

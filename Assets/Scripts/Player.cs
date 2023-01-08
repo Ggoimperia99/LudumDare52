@@ -15,6 +15,11 @@ public class Player : MonoBehaviour
     // used to measure how many seeds player posseses
     [SerializeField] int seedCount = 1;
 
+    // How many coloured plants player has harvested
+    [SerializeField] int numberGreen = 0;
+    [SerializeField] int numberPurple = 0;
+    [SerializeField] int numberBlue = 0;
+
     // Cache
     Plot plot;
 
@@ -106,6 +111,23 @@ public class Player : MonoBehaviour
                     plot.spawnPlant();
                 }
             }
+        }
+    }
+
+    // Player to get the colour value from the plant object when harvesting, called in plant script
+    public void HarvestPlant(int plantColourType)
+    {
+        if(plantColourType == 1)
+        {
+            numberGreen += 1;
+        }
+        if(plantColourType == 2)
+        {
+            numberPurple += 1;
+        }
+        if(plantColourType == 3)
+        {
+            numberBlue += 1;
         }
     }
 

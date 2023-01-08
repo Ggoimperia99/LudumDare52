@@ -11,10 +11,16 @@ public class Plant : MonoBehaviour
     [SerializeField] int waterCount = 0;
     [SerializeField] int waterLimit = 3;
 
+    // Colour reference, 1 = green, 2 = purple, 3 = blue
+    [SerializeField] int plantType = 1;
+
+    // Cache
+    Player player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = FindObjectOfType<Player>();
     }
 
     // Update is called once per frame
@@ -46,12 +52,19 @@ public class Plant : MonoBehaviour
                 waterCount = 0;
                 growthStage++;
             }
+
             // if can no longer grow then just harvest
             else if (!canGrow)
             {
-                Debug.Log("Time to Harvest!");
+                player.HarvestPlant(plantType);
                 Destroy(gameObject);
             }
         }
+    }
+
+    // Tells the plant type
+    public int ShowPlantType()
+    {
+        return plantType;
     }
 }
