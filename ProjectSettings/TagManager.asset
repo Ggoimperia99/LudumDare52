@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Plot
   - Well
+  - ColourTarget
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Player
   - Plot
   - Well
-  - 
+  - House
   - 
   - 
   - 

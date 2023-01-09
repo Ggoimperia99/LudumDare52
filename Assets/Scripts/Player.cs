@@ -11,17 +11,18 @@ public class Player : MonoBehaviour
     // used to check if players are interacting with things
     [SerializeField] bool canPlot = false;
     [SerializeField] bool canWell = false;
+    [SerializeField] bool canPaint = false;
 
     // used to measure how many seeds player posseses
     [SerializeField] int seedCount = 1;
 
-    // How many coloured plants player has harvested
-    [SerializeField] int numberGreen = 0;
-    [SerializeField] int numberPurple = 0;
-    [SerializeField] int numberBlue = 0;
+    // Type of colour player is holding now, if it is holding
+    [SerializeField] int colourType = 0;
+    [SerializeField] bool isHoldingColour = false;
 
     // Cache
     Plot plot;
+    PaintTarget colourTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +35,13 @@ public class Player : MonoBehaviour
     {
         PlayerMove();
         PlantSeed();
+        UseColour();
 
         //Water the plots or wells
         if (Input.GetKeyDown(KeyCode.E))
         {
             // If player is touching the plot
-            if (canPlot)
+            if (canPlot && !isHoldingColour)
             {
                 if (waterLevel != 0)
                 {
@@ -53,7 +55,7 @@ public class Player : MonoBehaviour
             }
 
             // If player is touching the well
-            if (canWell) 
+            if (canWell && !isHoldingColour) 
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
@@ -88,6 +90,13 @@ public class Player : MonoBehaviour
         {
             canWell = true;
         }
+
+        //checks if this trigger is Colour Target
+        if (collision.tag == "ColourTarget")
+        {
+            colourTarget = collision.GetComponent<PaintTarget>(); // Indicate the target is the one colliding with
+            canPaint = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -95,12 +104,13 @@ public class Player : MonoBehaviour
         //player can no longer interact
         canPlot = false;
         canWell = false;
+        canPaint = false;
     }
 
     private void PlantSeed()
     {
         // if player is in interacting range with plot
-        if (canPlot)
+        if (canPlot && !isHoldingColour)
         {
             if (Input.GetKeyUp(KeyCode.P))
             {
@@ -119,15 +129,41 @@ public class Player : MonoBehaviour
     {
         if(plantColourType == 1)
         {
-            numberGreen += 1;
+            colourType = 1;
+            isHoldingColour = true;
         }
         if(plantColourType == 2)
         {
-            numberPurple += 1;
+            colourType = 2;
+            isHoldingColour = true;
         }
         if(plantColourType == 3)
         {
-            numberBlue += 1;
+            colourType = 3;
+            isHoldingColour = true;
+        }
+    }
+
+    // Player uses the colour
+    private void UseColour()
+    {
+        if (isHoldingColour && canPaint)
+        {
+            if (Input.GetKeyUp(KeyCode.P))
+            {
+                // If colour player is holding is the same as the house required, completes colour change
+                if (colourType == colourTarget.ShowColour())
+                {
+                    colourTarget.ChangeColour();
+                    isHoldingColour = false;
+                }
+
+                // If colour player has is not the same
+                if(colourType != colourTarget.ShowColour())
+                {
+                    colourTarget.Glow();
+                }
+            }
         }
     }
 
