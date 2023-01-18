@@ -10,17 +10,26 @@ public class Plant : MonoBehaviour
     [SerializeField] int growthLimit = 3;
     [SerializeField] int waterCount = 0;
     [SerializeField] int waterLimit = 3;
+    [SerializeField] Sprite[] plantStages;
 
-    // Colour reference, 1 = green, 2 = purple, 3 = blue
+    // Colour reference, 1 = red, 2 = yellow, 3 = blue
     [SerializeField] int plantType = 1;
+
+    // Plant growth stage sprite index
+    private int plantStageIndex = 0;
 
     // Cache
     Player player;
+    SpriteRenderer sprtRndr;
 
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<Player>();
+        sprtRndr = GetComponent<SpriteRenderer>();
+
+        // Set growth stage sprite
+        sprtRndr.sprite = plantStages[plantStageIndex];
     }
 
     // Update is called once per frame
@@ -31,6 +40,9 @@ public class Plant : MonoBehaviour
         {
             canGrow = false;
         }
+
+        // Set growth stage sprite
+        sprtRndr.sprite = plantStages[plantStageIndex];
     }
 
     // Receiving water for the plant
@@ -48,8 +60,8 @@ public class Plant : MonoBehaviour
             if (canGrow)
             {
                 // So far increase in size (replace with sprite change?)
-                transform.localScale += new Vector3(0.3f, 0.3f, 0);
                 waterCount = 0;
+                plantStageIndex++;
                 growthStage++;
             }
 
@@ -57,6 +69,7 @@ public class Plant : MonoBehaviour
             else if (!canGrow)
             {
                 player.HarvestPlant(plantType);
+                player.SpawnSeed();
                 Destroy(gameObject);
             }
         }

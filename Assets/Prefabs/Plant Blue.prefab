@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: a68ebbc6a8a554fe7822df0a89037cfb, type: 3}
-  m_Color: {r: 0, g: 0.5305844, b: 0.9339623, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1a7d14b25856e4017999f834c3fa7cf9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,4 +102,9 @@ MonoBehaviour:
   growthLimit: 3
   waterCount: 0
   waterLimit: 3
+  plantStages:
+  - {fileID: 21300000, guid: 1a7d14b25856e4017999f834c3fa7cf9, type: 3}
+  - {fileID: 21300000, guid: 61485c47ff2af48bcaee36065efbbac2, type: 3}
+  - {fileID: 21300000, guid: b62723b49376c4f20985609c74d2ef58, type: 3}
+  seed: {fileID: 6380326742069632085, guid: f4a2cac9caf0b4a96a276e85e1f799f7, type: 3}
   plantType: 3

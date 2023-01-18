@@ -24,6 +24,14 @@ public class Plot : MonoBehaviour
     float maxTime = 5;
     float time;
 
+    // Cache
+    Animator plotAnim;
+
+    private void Start()
+    {
+        plotAnim = GetComponent<Animator>();
+    }
+
     void Update()
     {
         //if wtered it executes this
@@ -31,6 +39,7 @@ public class Plot : MonoBehaviour
         {
             timesWatered++;
             cooldown = true;
+            plotAnim.SetTrigger("DampTrigger");
         }
 
         // cooldwon and reset
@@ -44,6 +53,7 @@ public class Plot : MonoBehaviour
             {
                 cooldown = false;
                 needToWater = true;
+                plotAnim.SetTrigger("DryTrigger");
                 time = 0;
             }
         }
